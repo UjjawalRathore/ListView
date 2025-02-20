@@ -1,18 +1,13 @@
-# Salesforce DX Project: Next Steps
-
-Now that you’ve created a Salesforce DX project, what’s next? Here are some documentation resources to get you started.
-
-## How Do You Plan to Deploy Your Changes?
-
-Do you want to deploy a set of changes, or create a self-contained application? Choose a [development model](https://developer.salesforce.com/tools/vscode/en/user-guide/development-models).
-
-## Configure Your Salesforce DX Project
-
-The `sfdx-project.json` file contains useful configuration information for your project. See [Salesforce DX Project Configuration](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_ws_config.htm) in the _Salesforce DX Developer Guide_ for details about this file.
-
-## Read All About It
-
-- [Salesforce Extensions Documentation](https://developer.salesforce.com/tools/vscode/)
-- [Salesforce CLI Setup Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_intro.htm)
-- [Salesforce DX Developer Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_intro.htm)
-- [Salesforce CLI Command Reference](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference.htm)
+# How to use this list view accelerator
+1) Download the code
+2) Create project with menifest in vs code
+3) Cut and paste the apex class and lwc component from downloaded code to the created project class and lwc section
+5) Authorize an org and deploy the code to your org
+6) Once successfully deployed then go to account record page 
+7) click on Edit page add a tab give the tab label as custom and Custom label whatever you like
+8) drag and drop your lwc component named Related Object List View
+9) Give related object api name like Contact
+10) Under Comma-Saperated Field API Name give the field of contact you want to see in the list view (LastName, MobilePhone, Email, Phone)
+11) Under Relationship Field Add the account related field in contact
+12) Save and authorize the Lightning app builder record page
+_______________________________________DONE_____________________________________________
