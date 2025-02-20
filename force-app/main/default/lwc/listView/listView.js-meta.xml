@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Related Object List View</masterLabel>
+    <targets>
+        <target>lightning__RecordPage</target>
+        <target>lightning__AppPage</target>
+        <target>lightning__HomePage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage, lightning__AppPage, lightning__HomePage">
+            <property type="String" name="listOfObjects" label="Related Object API Name" />
+            <property type="String" name="listOfFields" label="Comma-separated Field API Names" />
+            <property type="String" name="relationshipField" label="Relationship Field" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

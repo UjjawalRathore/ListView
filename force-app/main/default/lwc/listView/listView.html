@@ -1,0 +1,113 @@
+<template>
+    <lightning-card title={listOfObjects} icon-name={iconName}>
+        <div slot="actions">
+            <lightning-button 
+                label="Delete Selected" 
+                onclick={handlebulkDelete} 
+                variant="destructive"
+                class="slds-grid slds-grid_align-end">
+            </lightning-button>
+
+        </div>
+
+        <div class="slds-grid slds-gutters">
+            <div class="slds-col slds-size_1-of-4">
+                <lightning-combobox
+                    name="filterField"
+                    label="Filter Field"
+                    placeholder="Select Field"
+                    options={options}
+                    value={selectedField}
+                    onchange={handleFieldChange}>
+                </lightning-combobox>
+            </div>
+            <div class="slds-col slds-size_1-of-4">
+                <lightning-combobox
+                    name="filterOperator"
+                    label="Operator"
+                    placeholder="Select Operator"
+                    options={filterOperators}
+                    value={selectedOperator}
+                    onchange={handleOperatorChange}>
+                </lightning-combobox>
+            </div>
+            <div class="slds-col slds-size_1-of-4">
+                <template if:true={isPicklist}>
+                    <lightning-combobox
+                        name="filterValue"
+                        label="Value"
+                        options={currentPicklistValues}
+                        value={filterValue}
+                        onchange={handleValueChange}>
+                    </lightning-combobox>
+                </template>
+                
+                <template if:false={isPicklist}>
+                    <lightning-input
+                        name="filterValue"
+                        label="Value"
+                        type="text"
+                        value={filterValue}
+                        onchange={handleValueChange}>
+                    </lightning-input>
+                </template>
+            </div>
+            
+            <div class="custom-height-button">
+                <lightning-button variant="brand" label="Add Filter" onclick={handleAddFilter}></lightning-button>
+                
+            </div>
+        </div>
+        
+        <!-- Filter Pills -->
+        <div class="slds-m-top_medium slds-m-bottom_large">
+            <template if:true={appliedFilters}>
+                <template for:each={appliedFilters} for:item="filter">
+                    <lightning-pill
+                        key={filter.id}
+                        class="slds-m-right_small slds-m-bottom_small"
+                        label={filter.label}
+                        onremove={handleRemoveFilter}>
+                    </lightning-pill>
+                </template>
+            </template>
+        </div>
+        <lightning-datatable 
+        key-field="Id" 
+        data={paginatedRecords} 
+        columns={columns} 
+        onsave={handleSave} 
+        onrowaction={handleRowAction}
+        onrowselection={handleSelectedRecords}>
+    </lightning-datatable>
+    <div class="slds-m-top_medium slds-grid slds-align_absolute-center">
+        <lightning-button 
+            label="Previous" 
+            onclick={handlePrevious} 
+            disabled={isPreviousDisabled}>
+        </lightning-button>
+        <span class="slds-m-horizontal_medium">
+            Page {currentPage} of {totalPages}
+        </span>
+        <lightning-button 
+            label="Next" 
+            onclick={handleNext} 
+            disabled={isNextDisabled}>
+        </lightning-button>
+    </div>
+    
+    
+        <!-- <lightning-datatable 
+            key-field="Id" 
+            data={filteredRecords} 
+            columns={columns} 
+            onsave={handleSave} 
+            onrowaction={handleRowAction}
+            onrowselection={handleSelectedRecords}>
+        </lightning-datatable> -->
+
+        <template if:true={error}>
+            <p>{error.body.message}</p>
+        </template>
+    </lightning-card>
+</template>

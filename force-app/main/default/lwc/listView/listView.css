@@ -1,0 +1,6 @@
+.custom-height-button {
+    height: 50px; /* Adjust the height as needed */
+    line-height: 50px; 
+    padding-top: 18px;
+    padding-left: 10px;
+}
