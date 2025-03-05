@@ -73,28 +73,31 @@
             </template>
         </div>
         <lightning-datatable 
-        key-field="Id" 
-        data={paginatedRecords} 
-        columns={columns} 
-        onsave={handleSave} 
-        onrowaction={handleRowAction}
-        onrowselection={handleSelectedRecords}>
-    </lightning-datatable>
-    <div class="slds-m-top_medium slds-grid slds-align_absolute-center">
-        <lightning-button 
-            label="Previous" 
-            onclick={handlePrevious} 
-            disabled={isPreviousDisabled}>
-        </lightning-button>
-        <span class="slds-m-horizontal_medium">
-            Page {currentPage} of {totalPages}
-        </span>
-        <lightning-button 
-            label="Next" 
-            onclick={handleNext} 
-            disabled={isNextDisabled}>
-        </lightning-button>
-    </div>
+            key-field="Id" 
+            data={paginatedRecords} 
+            columns={columns} 
+            onsave={handleSave} 
+            onrowaction={handleRowAction}
+            onrowselection={handleSelectedRecords}
+            sorted-by={sortedBy}
+            sorted-direction={sortDirection}
+            onsort={handleSort}>
+        </lightning-datatable>
+        <div class="slds-m-top_medium slds-grid slds-align_absolute-center">
+            <lightning-button 
+                label="Previous" 
+                onclick={handlePrevious} 
+                disabled={isPreviousDisabled}>
+            </lightning-button>
+            <span class="slds-m-horizontal_medium">
+                Page {currentPage} of {totalPages}
+            </span>
+            <lightning-button 
+                label="Next" 
+                onclick={handleNext} 
+                disabled={isNextDisabled}>
+            </lightning-button>
+        </div>
     
     
         <!-- <lightning-datatable 

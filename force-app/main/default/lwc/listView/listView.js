@@ -35,12 +35,15 @@ export default class ListView extends NavigationMixin(LightningElement) {
     totalRecords = 0;
     totalPages = 0;
     paginatedRecords = [];
+    sortedBy = [];
+    sortDirection = [];
 
 
     connectedCallback() {
         if (this.listOfObjects) {
             this.processedObjectType = this.listOfObjects.toLowerCase();
         }
+        
     }
 
     @wire(getFieldTypes, { objectApiName: '$listOfObjects' })
@@ -148,7 +151,8 @@ export default class ListView extends NavigationMixin(LightningElement) {
             return {
                 label: label.replace('__c', '').replace('_', ' '),
                 fieldName: field.includes('.') ? field.replace('.', '_') : field,
-                type: field.toLowerCase().includes('date') ? 'date' : 'text'
+                type: field.toLowerCase().includes('date') ? 'date' : 'text',
+                sortable: true  // Enables sorting
             };
         });
     
@@ -157,12 +161,50 @@ export default class ListView extends NavigationMixin(LightningElement) {
                 ...this.columns[0],
                 fieldName: 'recordUrl',
                 type: 'url',
-                typeAttributes: { label: { fieldName: this.columns[0].fieldName }, target: '_self' }
+                typeAttributes: { label: { fieldName: this.columns[0].fieldName }, target: '_self' },
+                sortable: true
             };
         }
     
         this.columns.push({ type: 'action', typeAttributes: { rowActions: actions } });
     }
+    
+    handleSort(event) {
+        const { fieldName, sortDirection } = event.detail;
+        this.sortedBy = fieldName;
+        this.sortDirection = sortDirection;
+    
+        let cloneData = [...this.paginatedRecords];
+    
+        cloneData.sort((a, b) => {
+            let valueA = a[fieldName] || '';
+            let valueB = b[fieldName] || '';
+    
+            if (typeof valueA === 'string') {
+                valueA = valueA.toLowerCase();
+                valueB = valueB.toLowerCase();
+            }
+    
+            if (!isNaN(valueA) && !isNaN(valueB)) {
+                valueA = Number(valueA);
+                valueB = Number(valueB);
+            }
+    
+            if (fieldName.toLowerCase().includes('date')) {
+                valueA = new Date(valueA).getTime();
+                valueB = new Date(valueB).getTime();
+            }
+    
+            if (sortDirection === 'asc') {
+                return valueA > valueB ? 1 : (valueA < valueB ? -1 : 0);
+            } else {
+                return valueA < valueB ? 1 : (valueA > valueB ? -1 : 0);
+            }
+        });
+    
+        this.paginatedRecords = cloneData;
+    }
+    
 
 
     filterOperators = [
